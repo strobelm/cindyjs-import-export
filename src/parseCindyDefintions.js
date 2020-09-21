@@ -22,6 +22,12 @@ export function parseCindyDefitions(baseDir) {
 
 function parseOneFileAndGetDefintions(baseDir, filePath) {
   const relPath = path.relative(baseDir, filePath)
+
+  const ignoredFiles = ["Head.js", "Tail.js"]
+  if (ignoredFiles.includes(relPath)) {
+    return new Map()
+  }
+
   const content = fs.readFileSync(filePath)
 
   const parsed = parse(content, { ecmaVersion: "latest" })
