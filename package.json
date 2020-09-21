@@ -1,0 +1,43 @@
+{
+  "name": "cindy-import-export",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "acorn": "^8.0.1",
+    "eslint": "^7.9.0",
+    "fast-glob": "^3.2.4",
+    "glob": "^7.1.6"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
+    "babel-jest": "^26.3.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "Michael Strobel",
+  "license": "Apache 2",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  }
+}
