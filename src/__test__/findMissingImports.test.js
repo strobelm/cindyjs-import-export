@@ -1,15 +1,15 @@
 import { findMissingImports } from '../findMissingImports'
 
 test('find missing imports', async () => {
-  const baseDir = 'src/__test__/cindyjs'
+  const baseDir = 'src/__test__/cindyjs/src/js'
 
   const expectedMap = new Map([
     [
-      'src/js/libcs/CSNumber.js',
+      'libcs/CSNumber.js',
       ['instanceInvocationArguments', 'General', 'nada', 'List'],
     ],
     [
-      'src/js/libcs/List.js',
+      'libcs/List.js',
       [
         'CSNumber',
         'nada',
@@ -20,6 +20,7 @@ test('find missing imports', async () => {
         'evaluateAndVal',
       ],
     ],
+    ['libcs/General.js', ['CSNumber', 'List', 'niceprint', 'nada', 'Dict']],
   ])
   expect(await findMissingImports(baseDir)).toMatchObject(expectedMap)
 })

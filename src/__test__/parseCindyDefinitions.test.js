@@ -28,6 +28,7 @@ describe('Generate Defintions map', () => {
         PERTWOPI: 'libcs/CSNumber.js',
         angleUnits: 'libcs/CSNumber.js',
         List: 'libcs/List.js',
+        General: 'libcs/General.js',
       })
     )
 
