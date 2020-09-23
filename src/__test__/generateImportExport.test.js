@@ -14,6 +14,10 @@ describe('generate missing import export', () => {
   test('import map', () => {
     const expectedImportMap = new Map([
       [
+        'libcs/fakeFile.js',
+        new Set([{ import: 'CSNumber', file: 'libcs/CSNumber.js' }]),
+      ],
+      [
         'libcs/CSNumber.js',
         new Set([
           { import: 'General', file: 'libcs/General.js' },

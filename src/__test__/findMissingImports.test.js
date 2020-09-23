@@ -4,6 +4,7 @@ test('find missing imports', async () => {
   const baseDir = 'src/__test__/cindyjs/src/js'
 
   const expectedMap = new Map([
+    ['libcs/fakeFile.js', ['CSNumber']],
     [
       'libcs/CSNumber.js',
       ['instanceInvocationArguments', 'General', 'nada', 'List'],
