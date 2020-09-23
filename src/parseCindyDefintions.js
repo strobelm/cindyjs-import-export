@@ -2,6 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import fg from 'fast-glob'
 import { parse } from 'acorn'
+import { ignoredFiles } from './ignoredFiles'
 
 export function parseCindyDefitions(baseDir) {
   const fileNames = getFileNames(baseDir)
@@ -23,26 +24,30 @@ export function parseCindyDefitions(baseDir) {
 function parseOneFileAndGetDefintions(baseDir, filePath) {
   const relPath = path.relative(baseDir, filePath)
 
-  const ignoredFiles = ['Head.js', 'Tail.js']
   if (ignoredFiles.includes(relPath)) {
     return new Map()
   }
 
   const content = fs.readFileSync(filePath)
 
-  const parsed = parse(content, { ecmaVersion: 'latest' })
-  const { body } = parsed
+  try {
+    const parsed = parse(content, { ecmaVersion: 'latest' })
+    const { body } = parsed
 
-  const nameDefinitions = extractVariableDeclarations(body)
+    const nameDefinitions = extractVariableDeclarations(body)
 
-  const nameMap = nameDefinitions.reduce((acc, name) => {
-    if (acc.has(name)) {
-      throw new Error('Definition already exists!')
-    }
-    return new Map([...acc, [name, relPath]])
-  }, new Map())
+    const nameMap = nameDefinitions.reduce((acc, name) => {
+      if (acc.has(name)) {
+        throw new Error('Definition already exists!')
+      }
+      return new Map([...acc, [name, relPath]])
+    }, new Map())
 
-  return nameMap
+    return nameMap
+  } catch (e) {
+    console.error(`could not parse file ${relPath} with error ${e}`)
+    return new Map()
+  }
 }
 
 function extractVariableDeclarations(body) {
