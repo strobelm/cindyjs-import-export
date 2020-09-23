@@ -16,9 +16,10 @@ export async function applyImportsExports(dir) {
   }
 
   for (const [relativeFilePath, importSet] of importMap) {
+    const filePath = path.join(dir, relativeFilePath)
     const content = alteredFiles.has(relativeFilePath)
       ? alteredFiles.get(relativeFilePath)
-      : readFile(path.join(dir, relativeFilePath))
+      : readFile(filePath)
 
     const contentWithImportsAndExports = appendImportsToContent(
       content,
