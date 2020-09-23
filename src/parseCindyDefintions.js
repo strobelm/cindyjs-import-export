@@ -24,7 +24,7 @@ function parseOneFileAndGetDefintions(baseDir, filePath) {
   const relPath = path.relative(baseDir, filePath)
 
   const ignoredFiles = ['Head.js', 'Tail.js']
-  if (ignoredFiles.includes(relPath)) {
+  if (ignoredFiles.includes(path.basename(filePath))) {
     return new Map()
   }
 
