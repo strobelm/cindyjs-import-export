@@ -16,13 +16,9 @@ export async function applyImportsExports(dir) {
   }
 
   for (const [relativeFilePath, importSet] of importMap) {
-    if (!alteredFiles.has(relativeFilePath)) {
-      throw new Error(
-        'In order to import the file has we should have created an export'
-      )
-    }
-
-    const content = alteredFiles.get(relativeFilePath)
+    const content = alteredFiles.has(relativeFilePath)
+      ? alteredFiles.get(relativeFilePath)
+      : readFile(path.join(dir, relativeFilePath))
 
     const contentWithImportsAndExports = appendImportsToContent(
       content,
