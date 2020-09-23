@@ -287,3 +287,8 @@ General.deeplyEqual = function(a, b) {
         --cnt;
     return cnt === 0;
 };
+
+var Fake = {};
+Fake.identity = function(x){
+    return x
+}

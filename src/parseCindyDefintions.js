@@ -37,7 +37,7 @@ function parseOneFileAndGetDefintions(baseDir, filePath) {
 
   const nameMap = nameDefinitions.reduce((acc, name) => {
     if (acc.has(name)) {
-      throw new Error('Definition already exists!')
+      throw new Error(`Definition already exists!`)
     }
     return new Map([...acc, [name, relPath]])
   }, new Map())

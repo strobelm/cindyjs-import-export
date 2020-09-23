@@ -22,6 +22,7 @@ describe('Generate Defintions map', () => {
     const expectedDefinitons = new Map(
       Object.entries({
         CSNumber: 'libcs/CSNumber.js',
+        Fake: 'libcs/General.js',
         angleUnit: 'libcs/CSNumber.js',
         angleUnitName: 'libcs/CSNumber.js',
         TWOPI: 'libcs/CSNumber.js',

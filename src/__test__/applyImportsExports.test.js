@@ -12,7 +12,7 @@ describe('apply imports and exports', () => {
   test('exports added', async () => {
     const expectedExports = new Map([
       ['libcs/CSNumber.js', ['CSNumber']],
-      ['libcs/General.js', ['General']],
+      ['libcs/General.js', ['General', 'Fake']],
       ['libcs/List.js', ['List']],
     ])
 
