@@ -2,13 +2,13 @@ import fs from 'fs'
 import path from 'path'
 import { generateImportExport } from './generateImportExport'
 
-export async function applyImportsExports(inputDir) {
-  const { importMap, exportMap } = await generateImportExport(inputDir)
+export async function applyImportsExports(dir) {
+  const { importMap, exportMap } = await generateImportExport(dir)
 
   const alteredFiles = new Map()
 
   for (const [relativeFilePath, exportSet] of exportMap) {
-    const filePath = path.join(inputDir, relativeFilePath)
+    const filePath = path.join(dir, relativeFilePath)
     const content = readFile(filePath)
 
     const contentWithExports = appendExportsToConent(content, exportSet)
@@ -21,7 +21,7 @@ export async function applyImportsExports(inputDir) {
     if (alteredFiles.has(relativeFilePath)) {
       content = alteredFiles.get(relativeFilePath)
     } else {
-      const filePath = path.join(inputDir, relativeFilePath)
+      const filePath = path.join(dir, relativeFilePath)
       content = readFile(filePath)
     }
 
@@ -32,14 +32,14 @@ export async function applyImportsExports(inputDir) {
     alteredFiles.set(relativeFilePath, contentWithImportsAndExports)
   }
 
-  console.log(alteredFiles)
   return alteredFiles
 }
 
 function appendExportsToConent(content, exportSet) {
   const exportString = `export { ${[...exportSet].join(', ')} }`
 
-  const contentWithExports = `${content}
+  const contentWithExports = `
+${content}
 
 ${exportString}`
 
