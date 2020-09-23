@@ -9,8 +9,8 @@ export async function generateImportExport(dir) {
   const importMap = new Map()
   let notFound = []
 
-  for (let [file, missingSymbols] of missingImports) {
-    for (let importName of missingSymbols) {
+  for (let [file, missing] of missingImports) {
+    for (let importName of missing) {
       if (definitions.has(importName)) {
         const declarationOfImportFile = definitions.get(importName)
 
