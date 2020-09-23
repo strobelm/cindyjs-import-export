@@ -33,9 +33,27 @@ describe('apply imports and exports', () => {
 
   test('imports added', async () => {
     const expectedImports = new Map([
-      ['libcs/CSNumber.js', ['General', 'List']],
-      ['libcs/General.js', ['CSNumber', 'List']],
-      ['libcs/List.js', ['CSNumber', 'General']],
+      [
+        'libcs/CSNumber.js',
+        [
+          { names: ['General'], sourceValue: 'libcs/General.js' },
+          { names: ['List'], sourceValue: 'libcs/List.js' },
+        ],
+      ],
+      [
+        'libcs/General.js',
+        [
+          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber.js' },
+          { names: ['List'], sourceValue: 'libcs/List.js' },
+        ],
+      ],
+      [
+        'libcs/List.js',
+        [
+          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber.js' },
+          { names: ['General'], sourceValue: 'libcs/General.js' },
+        ],
+      ],
     ])
 
     for (let [file, importSymbols] of expectedImports) {
@@ -43,9 +61,13 @@ describe('apply imports and exports', () => {
       const imports = body.filter(node => node.type === 'ImportDeclaration')
 
       const importNames = imports
-        .map(e => e.specifiers)
+        .map(e => {
+          return {
+            names: e.specifiers.map(s => s.imported.name),
+            sourceValue: e.source.value,
+          }
+        })
         .flat()
-        .map(x => x.imported.name)
 
       expect(importNames).toEqual(importSymbols)
     }
