@@ -8,28 +8,25 @@ import { writeFilesToFilesystem } from '../writeFilesToFilesystem'
 
 test('write files to filesystem', async () => {
   const inputDir = 'src/__test__/cindyjs/src/js/'
-  const compareDir = 'src/__test__/cindyjsWithImports/src/js/'
+  const compDir = 'src/__test__/cindyjsWithImports/src/js/'
 
   const outputDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-'))
 
   await writeFilesToFilesystem(inputDir, outputDir)
 
-  const compareFiles = fg.sync(path.join(compareDir, '/**/*.js'))
+  const compareFiles = fg.sync(path.join(compDir, '/**/*.js'))
 
   compareFiles.map(f => {
-    const fileName = path.relative(compareDir, f)
+    const fileName = path.relative(compDir, f)
 
-    const prettierOptions = { parser: 'babel' }
-
-    const writtenFile = prettier.format(
-      fs.readFileSync(path.join(outputDir, fileName), 'utf8'),
-      prettierOptions
-    )
-    const compareFile = prettier.format(
-      fs.readFileSync(path.join(compareDir, fileName), 'utf8'),
-      prettierOptions
-    )
+    const writtenFile = readFileAndApplyPrettier(path.join(outputDir, fileName))
+    const compareFile = readFileAndApplyPrettier(path.join(compDir, fileName))
 
     expect(writtenFile).toEqual(compareFile)
   })
 })
+
+function readFileAndApplyPrettier(file) {
+  const prettierOptions = { parser: 'babel' }
+  return prettier.format(fs.readFileSync(file, 'utf8'), prettierOptions)
+}
