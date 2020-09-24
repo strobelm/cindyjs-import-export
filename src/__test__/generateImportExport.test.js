@@ -18,6 +18,7 @@ describe('generate missing import export', () => {
         new Set([
           { import: 'CSNumber', file: 'libcs/CSNumber.js' },
           { import: 'Fake', file: 'libcs/General.js' },
+          { import: 'General', file: 'libcs/General.js' },
         ]),
       ],
       [
