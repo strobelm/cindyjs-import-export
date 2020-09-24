@@ -2,6 +2,7 @@ import fs from 'fs'
 import os from 'os'
 import path from 'path'
 import fg from 'fast-glob'
+import prettier from 'prettier'
 
 import { writeFilesToFilesystem } from '../writeFilesToFilesystem'
 
@@ -17,8 +18,17 @@ test('write files to filesystem', async () => {
 
   compareFiles.map(f => {
     const fileName = path.relative(compareDir, f)
-    const writtenFile = fs.readFileSync(path.join(outputDir, fileName), 'utf8')
-    const compareFile = fs.readFileSync(path.join(compareDir, fileName), 'utf8')
+
+    const prettierOptions = { parser: 'babel' }
+
+    const writtenFile = prettier.format(
+      fs.readFileSync(path.join(outputDir, fileName), 'utf8'),
+      prettierOptions
+    )
+    const compareFile = prettier.format(
+      fs.readFileSync(path.join(compareDir, fileName), 'utf8'),
+      prettierOptions
+    )
 
     expect(writtenFile).toEqual(compareFile)
   })

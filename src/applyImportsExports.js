@@ -67,7 +67,7 @@ function removeFileExtension(fileName) {
   const parsed = path.parse(fileName)
   const { dir, name } = parsed
 
-  return `${dir}/${name}`
+  return path.join(dir, name)
 }
 
 const groupBy = (items, key) =>
