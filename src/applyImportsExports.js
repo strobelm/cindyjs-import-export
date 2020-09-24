@@ -43,8 +43,13 @@ ${exportString}`
 }
 
 function appendImportsToContent(content, importSet) {
-  const imports = [...importSet].map(
-    obj => `import { ${obj.import} } from '${removeFileExtension(obj.file)}'`
+  const grouped = groupBy([...importSet], 'file')
+  const keys = Object.keys(grouped)
+  const imports = keys.map(
+    k =>
+      `import { ${grouped[k]
+        .map(o => o.import)
+        .join(', ')} } from '${removeFileExtension(k)}'`
   )
   const importString = imports.join('\n')
 
@@ -66,3 +71,12 @@ function removeFileExtension(fileName) {
 
   return `${dir}/${name}`
 }
+
+const groupBy = (items, key) =>
+  items.reduce(
+    (result, item) => ({
+      ...result,
+      [item[key]]: [...(result[item[key]] || []), item],
+    }),
+    {}
+  )
