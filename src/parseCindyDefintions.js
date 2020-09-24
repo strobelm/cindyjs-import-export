@@ -34,13 +34,17 @@ function parseOneFileAndGetDefintions(baseDir, filePath) {
   const { body } = parsed
 
   const nameDefinitions = extractVariableDeclarations(body)
+  const functionDefinitions = extractFunctionDefinitions(body)
 
-  const nameMap = nameDefinitions.reduce((acc, name) => {
-    if (acc.has(name)) {
-      throw new Error(`Definition already exists!`)
-    }
-    return new Map([...acc, [name, relPath]])
-  }, new Map())
+  const nameMap = [...nameDefinitions, ...functionDefinitions].reduce(
+    (acc, name) => {
+      if (acc.has(name)) {
+        throw new Error(`Definition already exists!`)
+      }
+      return new Map([...acc, [name, relPath]])
+    },
+    new Map()
+  )
 
   return nameMap
 }
@@ -55,6 +59,15 @@ function extractVariableDeclarations(body) {
     .flat()
 
   const nameDefinitions = nameDeclarations.map(declr => declr.id.name)
+  return nameDefinitions
+}
+
+function extractFunctionDefinitions(body) {
+  const functionDeclarations = body.filter(
+    el => el.type === 'FunctionDeclaration'
+  )
+
+  const nameDefinitions = functionDeclarations.map(declr => declr.id.name)
   return nameDefinitions
 }
 

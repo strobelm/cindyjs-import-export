@@ -13,7 +13,7 @@ describe('apply imports and exports', () => {
     const expectedExports = new Map([
       ['libcs/CSNumber.js', ['CSNumber']],
       ['libcs/General.js', ['General', 'Fake']],
-      ['libcs/List.js', ['List']],
+      ['libcs/List.js', ['List', 'conicMat2Vec']],
     ])
 
     for (let [file, exportSymbols] of expectedExports) {

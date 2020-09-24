@@ -30,6 +30,7 @@ describe('Generate Defintions map', () => {
         angleUnits: 'libcs/CSNumber.js',
         List: 'libcs/List.js',
         General: 'libcs/General.js',
+        conicMat2Vec: 'libcs/List.js',
       })
     )
 

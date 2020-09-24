@@ -2659,4 +2659,4 @@ List.getRandComplexVec3 = function (min, max) {
   return List.turnIntoCSList([RC(min, max), RC(min, max), RC(min, max)])
 }
 
-export { List }
+export { List, conicMat2Vec }
