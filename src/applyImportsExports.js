@@ -44,7 +44,7 @@ ${exportString}`
 
 function appendImportsToContent(content, importSet) {
   const imports = [...importSet].map(
-    obj => `import { ${obj.import} } from '${obj.file}'`
+    obj => `import { ${obj.import} } from '${removeFileExtension(obj.file)}'`
   )
   const importString = imports.join('\n')
 
@@ -58,4 +58,11 @@ ${content}`
 
 function readFile(file) {
   return fs.readFileSync(file, 'utf8')
+}
+
+function removeFileExtension(fileName) {
+  const parsed = path.parse(fileName)
+  const { dir, name } = parsed
+
+  return `${dir}/${name}`
 }

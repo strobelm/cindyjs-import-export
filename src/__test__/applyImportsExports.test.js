@@ -36,22 +36,22 @@ describe('apply imports and exports', () => {
       [
         'libcs/CSNumber.js',
         [
-          { names: ['General'], sourceValue: 'libcs/General.js' },
-          { names: ['List'], sourceValue: 'libcs/List.js' },
+          { names: ['General'], sourceValue: 'libcs/General' },
+          { names: ['List'], sourceValue: 'libcs/List' },
         ],
       ],
       [
         'libcs/General.js',
         [
-          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber.js' },
-          { names: ['List'], sourceValue: 'libcs/List.js' },
+          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber' },
+          { names: ['List'], sourceValue: 'libcs/List' },
         ],
       ],
       [
         'libcs/List.js',
         [
-          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber.js' },
-          { names: ['General'], sourceValue: 'libcs/General.js' },
+          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber' },
+          { names: ['General'], sourceValue: 'libcs/General' },
         ],
       ],
     ])
