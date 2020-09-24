@@ -34,8 +34,7 @@ export async function applyImportsExports(dir) {
 function appendExportsToConent(content, exportSet) {
   const exportString = `export { ${[...exportSet].join(', ')} }`
 
-  const contentWithExports = `
-${content}
+  const contentWithExports = `${content}
 
 ${exportString}`
 
@@ -53,8 +52,7 @@ function appendImportsToContent(content, importSet) {
   )
   const importString = imports.join('\n')
 
-  const contentWithImports = `
-${importString}
+  const contentWithImports = `${importString}
 
 ${content}`
 
