@@ -1,5 +1,5 @@
-const { ESLint } = require('eslint')
-const path = require('path')
+import { ESLint } from 'eslint'
+import path from 'path'
 
 export async function findMissingImports(dir) {
   const options = { ignore: false }
