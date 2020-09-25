@@ -1,5 +1,6 @@
 import { ESLint } from 'eslint'
 import path from 'path'
+import globalVariables from './globalVariables'
 
 export async function findMissingImports(dir) {
   const options = { ignore: false }
@@ -19,11 +20,15 @@ function transFormEslintResults(eslintResults) {
     .map(r => {
       const { filePath, messages } = r
       const filteredMsgs = messages.filter(m => m.ruleId === 'no-undef')
-      const missingImports = [
+      const AllMissingImports = [
         ...new Set(
           filteredMsgs.map(m => m.message).map(s => s.match(/'([^']+)'/)[1]) // extract content of single quotes
         ),
       ]
+      // filter global variables
+      const missingImports = AllMissingImports.filter(
+        i => !globalVariables.includes(i)
+      )
       return { filePath, missingImports }
     })
     .filter(o => o.missingImports.length !== 0)
