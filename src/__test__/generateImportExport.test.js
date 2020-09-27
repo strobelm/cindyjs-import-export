@@ -70,6 +70,7 @@ describe('generate missing import export', () => {
       'comp_equals',
       'comp_almostequals',
       'evaluateAndVal',
+      'simspeed',
     ]
 
     expect(expectedNotFound).toEqual(notFound)
