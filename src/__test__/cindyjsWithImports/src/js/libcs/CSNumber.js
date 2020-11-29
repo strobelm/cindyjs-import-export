@@ -1,5 +1,5 @@
-import { General } from 'libcs/General'
 import { List } from 'libcs/List'
+import { General } from 'libcs/General'
 
 //= =========================================
 //      Complex Numbers

@@ -12,8 +12,8 @@ describe('apply imports and exports', () => {
   test('exports added', async () => {
     const expectedExports = new Map([
       ['libcs/CSNumber.js', ['CSNumber']],
-      ['libcs/General.js', ['General', 'Fake']],
       ['libcs/List.js', ['List', 'conicMat2Vec']],
+      ['libcs/General.js', ['General', 'Fake']],
     ])
 
     for (let [file, exportSymbols] of expectedExports) {
@@ -36,15 +36,8 @@ describe('apply imports and exports', () => {
       [
         'libcs/CSNumber.js',
         [
+          { names: ['List'], sourceValue: 'libcs/List' },
           { names: ['General'], sourceValue: 'libcs/General' },
-          { names: ['List'], sourceValue: 'libcs/List' },
-        ],
-      ],
-      [
-        'libcs/General.js',
-        [
-          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber' },
-          { names: ['List'], sourceValue: 'libcs/List' },
         ],
       ],
       [
@@ -52,6 +45,13 @@ describe('apply imports and exports', () => {
         [
           { names: ['CSNumber'], sourceValue: 'libcs/CSNumber' },
           { names: ['General'], sourceValue: 'libcs/General' },
+        ],
+      ],
+      [
+        'libcs/General.js',
+        [
+          { names: ['CSNumber'], sourceValue: 'libcs/CSNumber' },
+          { names: ['List'], sourceValue: 'libcs/List' },
         ],
       ],
     ])

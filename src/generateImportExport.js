@@ -1,5 +1,6 @@
 import { parseCindyDefitions } from './parseCindyDefintions'
 import { findMissingImports } from './findMissingImports'
+import { sortMapByBuildOrder } from './buildOrder'
 
 export async function generateImportExport(dir) {
   const definitions = parseCindyDefitions(dir)
@@ -36,5 +37,8 @@ export async function generateImportExport(dir) {
     }
   }
 
-  return { importMap, exportMap, notFound }
+  const sortedImportMap = sortMapByBuildOrder(importMap)
+  const sortedExportMap = sortMapByBuildOrder(exportMap)
+
+  return { importMap: sortedImportMap, exportMap: sortedExportMap, notFound }
 }
