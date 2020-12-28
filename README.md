@@ -14,4 +14,4 @@ You can build the scripts with
 `npm run-script test` will run the tests and `npm run-script test:coverage` will generate coverage files.
 
 ## Run
-`npm run-script run <CindyJsInputDirectory> <OutputDirectory>` will take the CindyJS files and put the updated files into <OutputDirector>.
+`npm run-script run <CindyJsInputDirectory> <OutputDirectory>` will take the CindyJS files from `<CindyJsInputDirectory>` and put the updated files into `<OutputDirectory>`.
