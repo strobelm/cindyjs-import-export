@@ -11,5 +11,9 @@ if (argv.length !== 4) {
 
 const inputDir = argv[2]
 const outputDir = argv[3]
+if (inputDir === outputDir) {
+  console.error('input and output directories should be different.')
+  process.exit(1)
+}
 
 writeFilesToFilesystem(inputDir, outputDir).then(console.log('Finished!'))
