@@ -36,12 +36,6 @@ function sortOneSet(inputSet) {
       const idxA = buildOrder.indexOf(a.file)
       const idxB = buildOrder.indexOf(b.file)
 
-      if (idxA == undefined || idxB == undefined) {
-        throw new Error(
-          `Could not find build index for one of the files: ${a.file} or ${b.file}`
-        )
-      }
-
       return idxA - idxB
     })
   )
